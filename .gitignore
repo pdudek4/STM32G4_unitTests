@@ -1,0 +1,4 @@
+Debug/
+Release/
+/GTest
+tests/ceedling/build/
