@@ -34,6 +34,7 @@ extern volatile appCrcInfo_ts appCrcInfo;
 //**********************************APP_preinitialize**************************
 TEST(APP_test, test_preinitialize)
 {
+	APP_preinitialize();
 	EXPECT_TRUE(1);
 }
 
@@ -137,9 +138,5 @@ TEST(APP_test, test_checkAppCrc_goodCrc)
 
 	delete bsp_crc_MockObj;
 }
-
-
-
-
 
 

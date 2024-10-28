@@ -8,8 +8,8 @@
 #include "state_machine.h"
 
 #include "application.h"
-//#include "configuration.h"
-//#include "crypto.h"
+#include "configuration.h"
+#include "crypto.h"
 #include "utilities.h"
 
 
@@ -24,7 +24,7 @@ extern uint32_t received_data_bytes;
  */
 void SM_init(void)
 {
-//	CRYPTO_initSecretKey();
+	CRYPTO_initSecretKey();
 	current_state = SM_RESET_PROCEDURE;
 }
 
@@ -56,10 +56,10 @@ void SM_process(void)
 	{
 	case SM_RESET_PROCEDURE:
 	{
-//		received_data_bytes = 0;
-//		binary_length = 0;
-//		CRYPTO_deInitPrivateKey();
-//		current_state = SM_WAITING_FOR_DATA;
+		received_data_bytes = 0;
+		binary_length = 0;
+		CRYPTO_deInitPrivateKey();
+		current_state = SM_WAITING_FOR_DATA;
 		break;
 	}
 	case SM_WAITING_FOR_DATA:
@@ -80,8 +80,8 @@ void SM_process(void)
 
 	case SM_CHECKING_DATA_INTEGRITY:
 		//todo sprawdzenie CRC firmware we flashu
-//		setFlashByte();
-//		current_state = SM_RUNNING_MAIN_APP;
+		setFlashByte();
+		current_state = SM_RUNNING_MAIN_APP;
 		break;
 
 	case SM_RUNNING_MAIN_APP:

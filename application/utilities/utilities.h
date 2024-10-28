@@ -11,6 +11,9 @@
 #ifdef USE_HAL_DRIVER
 #include "hal_include.h"
 #endif
+#ifdef UNIT_TEST
+#include "testing_defines.h"
+#endif
 #include <stdint.h>
 #include <stdbool.h>
 

@@ -24,6 +24,7 @@
         - -Wno-pointer-to-int-cast
         - -Wno-int-to-pointer-cast
         - -D DEBUG
+        - -D UNIT_TEST
 
 :environment: []
 
@@ -36,6 +37,7 @@
 #    - -:test/support
   :source:
     - ../../application/**
+    - ../../third_party/tiny-AES-c/**
 #  :support:
 #    - test/support
 
@@ -70,6 +72,6 @@
   :load_paths:
     - "#{Ceedling.load_path}"
   :enabled:
-     # stdout_pretty_tests_report
-     - stdout_gtestlike_tests_report
+     - stdout_pretty_tests_report
+     #- stdout_gtestlike_tests_report
 #    - gcov

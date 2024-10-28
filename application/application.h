@@ -29,6 +29,7 @@ void APP_initialize(void);
 void APP_process(void);
 
 uint8_t APP_checkAppCrc(void);
+void APP_jumpToApplication(void);
 
 
 #ifdef __cplusplus

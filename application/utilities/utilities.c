@@ -10,23 +10,24 @@
 #include "hal_include.h"
 //#include "iwdg.h"
 
-#ifdef USE_HAL_DRIVER
 void offsetInterruptVector()
 {
+#ifdef USE_HAL_DRIVER
 	SCB->VTOR = (FLASH_BASE | 0x8000);
 //	SCB->VTOR = (FLASH_BASE | APP_OFFSET);
+#endif
 }
 
 void restartDevice()
 {
+#ifdef USE_HAL_DRIVER
 	NVIC_SystemReset();
+#endif
 }
 
 void disableAppInterrupts()
 {
-//	HAL_NVIC_DisableIRQ(EXTI9_5_IRQn); //todo
-//	HAL_TIM_Base_MspDeInit(&htim1);
-//	HAL_TIM_Base_MspDeInit(&htim4);
+
 }
 
 void ASSERT(bool expr)
@@ -38,7 +39,6 @@ void ASSERT(bool expr)
 	}
 #endif
 }
-#endif
 
 void DELAY_MS(uint32_t ms)
 {

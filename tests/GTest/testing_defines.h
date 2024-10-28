@@ -4,6 +4,20 @@
 //#define ASSERT(expr) (void)0U
 #include <stdint.h>
 
+
+//GPIO
+#define GPIOA			1	//(GPIO_TypeDef *)
+#define GPIOB			2
+#define GPIOC			3
+#define GPIOD			4
+#define GPIOE			5
+
+#define GPIO_PIN_12		((uint16_t)12)
+#define GPIO_PIN_13		((uint16_t)13)
+#define GPIO_PIN_14		((uint16_t)14)
+#define GPIO_PIN_15		((uint16_t)15)
+
+
 typedef enum
 {
   SUCCESS = 0,
