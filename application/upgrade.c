@@ -100,7 +100,7 @@ void UPGRADE_framePasswordKey(uint8_t *pRx)
 	{
 		flash_status retVal;
 
-		clearFlashByte();	//todo błąd GTtest z EEPROM CRC! oczekuje prawdziwego adresu
+//		clearFlashByte();	//todo błąd GTtest z EEPROM CRC! oczekuje prawdziwego adresu
 		retVal = FLASH_erase(FLASH_APP_START_ADDRESS);
 		if (retVal != FLASH_STATUS_OK)
 		{
