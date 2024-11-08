@@ -23,9 +23,9 @@ Ceedling wymaga instalacji Ruby'iego co może odrzucać, jednak instalacja GTest
 
 ### Cechy GTest
 - cały nasz kod projektu musi się kompilować w GCC lub G++.
-- moliwe uzycie C i C++ w jednym projekcie.
+- możliwe użycie C i C++ w jednym projekcie.
 - duży problem z mockami, trzeba pisać wszystko ręcznie; trzeba używac mocków wszędzie,
-- trudność w uzywaniu mocków,
+- trudność w używaniu mocków,
 - można debugować cały kod projektowy i produkcyjny w GDB i w STM32CubeIDE,
 - pełna integracja z STM32CubeIDE, ale wymaga to dość sporo pracy - poradniki na dole;
 - uruchamianie z IDE (lepsze rozwiązanie) lub konsoli,
