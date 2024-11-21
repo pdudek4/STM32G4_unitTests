@@ -114,6 +114,6 @@ Scieżka do unity\
 
 ## Użycie GTest w Eclipse / STM32CubeIde
 Ten projekt jest skonfigurowany według poniższych zaleceń.\
-https://michael.kafarowski.com/blog/unit-testing-with-stm32cubeide/\
+https://michael.kafarowski.com/blog/unit-testing-with-stm32cubeide/ \
 https://stackoverflow.com/questions/3951808/using-googletest-in-eclipse-how
 
