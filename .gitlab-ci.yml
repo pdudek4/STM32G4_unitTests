@@ -1,7 +1,7 @@
 
 build release:
   stage: build
-  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.1
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.2
   script:
       - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace
   artifacts:
