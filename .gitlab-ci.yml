@@ -1,0 +1,20 @@
+
+build release:
+  stage: build
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.1
+
+  script:
+    - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll /workdir -data /workspace
+
+    artifacts:
+      name: "${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
+      paths:
+        - ./Release/STM32G4_unitTests.bin
+      expire_in: 1 mos
+      access: 'developer'
+
+test Ceedling:
+  stage: test
+  image: throwtheswitch/madsciencelab:0.3.2
+  script:
+    - cd tests/ceedling && ceedling
