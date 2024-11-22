@@ -1,9 +1,12 @@
 
 build release:
   stage: build
-  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.2
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.3
   script:
-      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace
+      - apt install build-essential -y
+      - 'gcc --version'
+      - 'g++ --version'
+      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace -printErrorMarkers -I /usr/bin/ --launcher.ini /opt/st/stm32cubeide_1.16.0/stm32cubeide.ini
   artifacts:
     name: "${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
     paths:
