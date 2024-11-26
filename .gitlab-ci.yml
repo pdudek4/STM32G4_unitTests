@@ -1,5 +1,5 @@
 
-build release:
+build_release:
   stage: build
   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.3
   script:
@@ -11,7 +11,7 @@ build release:
     expire_in: 1 mos
     access: 'developer'
 
-test Ceedling:
+test_ceedling:
   stage: test
   image: throwtheswitch/madsciencelab:0.3.2
   script:
