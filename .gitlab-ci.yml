@@ -22,9 +22,11 @@ test_ceedling:
 deploy_qnap:
   stage: deploy
   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
+  rules:
+    - if: $CI_COMMIT_TAG
   before_script:
     - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
     - mount.cifs -o username=przemyslaw.dudek,password=przdud123! //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
   script:
     - ls ./Release
-    - cp ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/LED3/
+    - cp ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
