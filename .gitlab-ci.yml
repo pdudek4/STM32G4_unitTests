@@ -1,18 +1,30 @@
 
 build_release:
   stage: build
-  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.3
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
   script:
-      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace -printErrorMarkers -I /usr/bin/ --launcher.ini /opt/st/stm32cubeide_1.16.0/stm32cubeide.ini
+      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace
+  after_script:
+      - mv ./Release/STM32G4_unitTests.bin ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin
   artifacts:
-    name: "${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
+    name: "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
-      - ./Release/STM32G4_unitTests.bin
+      - ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin
     expire_in: 1 mos
-    access: 'developer'
+    # access: 'developer'
 
 test_ceedling:
   stage: test
   image: throwtheswitch/madsciencelab:0.3.2
   script:
     - cd tests/ceedling && ceedling
+
+deploy_qnap:
+  stage: deploy
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
+  before_script:
+    - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
+    - mount.cifs -o username=przemyslaw.dudek,password=przdud123! //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
+  script:
+    - ls ./Release
+    - cp ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/LED3/
