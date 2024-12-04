@@ -11,11 +11,11 @@ build_release:
       - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace
       - echo BUILD_JOB_ID=$CI_JOB_ID >> CI_JOB_ID.env   #get the job id and save it as environment statement
   after_script:
-      - mv ./Release/STM32G4_unitTests.bin ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin
+      - mv ./Release/STM32G4_unitTests.bin ./TEST_app_${CI_COMMIT_REF_NAME}.bin
   artifacts:
     name: "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
-      - ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin
+      - ./TEST_app_${CI_COMMIT_REF_NAME}.bin
       - ./*FLASH.ld
     expire_in: 1 mos
     # access: 'developer'
