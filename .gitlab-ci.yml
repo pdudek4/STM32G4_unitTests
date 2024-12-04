@@ -1,4 +1,10 @@
 
+stages:
+  - build
+  - test
+  - deploy
+  - release
+
 build_release:
   stage: build
   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
@@ -23,10 +29,25 @@ deploy_qnap:
   stage: deploy
   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   before_script:
     - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
     - mount.cifs -o username=przemyslaw.dudek,password=przdud123! //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
   script:
     - ls ./Release
     - cp ./Release/TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: build_release
+      artifacts: true
+    - job: test_ceedling
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
+  script:
+    - echo "Running release job"
+  release:
+    tag_name: '$CI_COMMIT_TAG'
+    description: 'Firmware: $CI_COMMIT_TAG'
