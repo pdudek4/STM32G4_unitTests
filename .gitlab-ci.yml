@@ -57,5 +57,5 @@ release:
     assets:
       links:
         - name: "Artifacts"
-          url: '"$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/${BUILD_JOB_ID}/artifacts/"'
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/${BUILD_JOB_ID}/artifacts"
           
