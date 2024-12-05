@@ -1,7 +1,4 @@
-
-[![pipeline status](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/badges/main/pipeline.svg)](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/commits/main)
-
-[![Latest Release](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/badges/release.svg)](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/releases)
+[![pipeline status](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/badges/main/pipeline.svg)](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/commits/main)[![Latest Release](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/badges/release.svg)](https://gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/stm32g4_unittests/-/releases)
 
 
 ## Testowy projekt Unit testów STM32 Ceedling i GTest
