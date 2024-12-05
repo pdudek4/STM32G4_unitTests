@@ -20,7 +20,7 @@ build_release:
     expire_in: 1 mos
     # access: 'developer'
     reports:
-      dotenv: CI_JOB_ID.env   #export the environment statement so we can access it in the release stage
+     dotenv: CI_JOB_ID.env   #export the environment statement so we can access it in the release stage
 
 test_ceedling:
   stage: test
@@ -35,7 +35,7 @@ deploy_qnap:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   before_script:
     - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
-    - mount.cifs -o username=$QNAP_USER,password=$QNAP_PASS //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
+    - mount.cifs -o username="$QNAP_USER",password="$QNAP_PASS" //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
   script:
     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
 
