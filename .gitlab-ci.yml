@@ -6,12 +6,12 @@ stages:
 
 build_release:
   stage: build
-  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
   script:
       - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/Release -importAll "$PWD" -data /workspace
-      - echo BUILD_JOB_ID=$CI_JOB_ID >> CI_JOB_ID.env   #get the job id and save it as environment statement
   after_script:
       - mv ./Release/STM32G4_unitTests.bin ./TEST_app_${CI_COMMIT_REF_NAME}.bin
+      - echo BUILD_JOB_ID=$CI_JOB_ID >> CI_JOB_ID.env   #get the job id and save it as environment statement
   artifacts:
     name: "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
@@ -19,8 +19,32 @@ build_release:
       - ./*FLASH.ld
     expire_in: 1 mos
     # access: 'developer'
+#    reports:
+#      dotenv: CI_JOB_ID.env   #export the environment statement so we can access it in the release stage
+
+build_image:
+  stage: build
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
+  needs:
+    - job: build_release
+      artifacts: true
+  script:
+    - git clone https://gitlab-ci-token:${CI_BINUTILS_TOKEN}@gitlab.ekoenergetyka.com.pl/przemyslaw.dudek/bin_utils.git
+    - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin ./bin_utils/encrypt_binary/
+    - cd bin_utils/encrypt_binary/
+    - make
+    - ./out-g++/encrypt-binary TEST_app_${CI_COMMIT_REF_NAME}.bin 1 1
+  after_script:
+    - mv ./bin_utils/encrypt_binary/o.image ./TEST_app_${CI_COMMIT_REF_NAME}.image
+    - echo BUILD_JOB_ID1=$CI_JOB_ID >> CI_JOB_ID.env   #get the job id and save it as environment statement
+  artifacts:
+    name: "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}_image"  #must be other than in build_release
+    paths:
+      - ./TEST_app_${CI_COMMIT_REF_NAME}.image
+    expire_in: 1 mos
+    # access: 'developer'
     reports:
-     dotenv: CI_JOB_ID.env   #export the environment statement so we can access it in the release stage
+      dotenv: CI_JOB_ID.env   #export the environment statement so we can access it in the release stage
 
 test_ceedling:
   stage: test
@@ -28,16 +52,16 @@ test_ceedling:
   script:
     - cd tests/ceedling && ceedling
 
-deploy_qnap:
-  stage: deploy
-  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.4
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
-  before_script:
-    - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
-    - mount.cifs -o username="$QNAP_USER",password="$QNAP_PASS" //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
-  script:
-    - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
+# deploy_qnap:
+#   stage: deploy
+#   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
+#   rules:
+#     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
+#   before_script:
+#     - mkdir -p /builds/przemyslaw.dudek/mnt/dev #/builds/repoGroup/mnt/dev
+#     - mount.cifs -o username="$QNAP_USER",password="$QNAP_PASS" //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
+#   script:
+#     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
 
 release:
   stage: release
@@ -55,6 +79,8 @@ release:
     description: 'Firmware: $CI_COMMIT_TAG'
     assets:
       links:
-        - name: "Artifacts"
+        - name: "Artifacts bin"
           url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/${BUILD_JOB_ID}/artifacts"
+        - name: "Artifacts image"
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/${BUILD_JOB_ID1}/artifacts"  
           
