@@ -72,6 +72,6 @@
   :load_paths:
     - "#{Ceedling.load_path}"
   :enabled:
-     - stdout_pretty_tests_report
-     #- stdout_gtestlike_tests_report
+     #- stdout_pretty_tests_report
+     - stdout_gtestlike_tests_report
      - junit_tests_report
