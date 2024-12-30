@@ -53,6 +53,11 @@ test_ceedling:
   image: throwtheswitch/madsciencelab:0.3.2
   script:
     - cd tests/ceedling && ceedling
+  artifacts:
+    when: always    #upload the report even if the job fails
+    reports:
+      junit: ./tests/ceedling/build/artifacts/test/report.xml
+    expire_in: 1 mos
 
 test_gtest:
   stage: test
