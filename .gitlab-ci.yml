@@ -47,11 +47,25 @@ build_image:
     reports:
       dotenv: JOB_ID_BUILD_IMAGE.env   #export the environment statement so we can access it in the release stage
 
+
 test_ceedling:
   stage: test
   image: throwtheswitch/madsciencelab:0.3.2
   script:
     - cd tests/ceedling && ceedling
+
+test_gtest:
+  stage: test
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
+  script:
+      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/GTest -importAll "$PWD" -data /workspace
+      - ./GTest/STM32G4_unitTests --gtest_output="xml:./GTest/report.xml"
+  artifacts:
+    when: always    #upload the report even if the job fails
+    reports:
+      junit: ./GTest/report.xml
+    expire_in: 1 mos
+
 
 deploy_qnap:
   stage: deploy
@@ -64,6 +78,7 @@ deploy_qnap:
   script:
     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.image /builds/przemyslaw.dudek/mnt/dev/Gitlab/
+
 
 release:
   stage: release
