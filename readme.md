@@ -17,9 +17,9 @@ Ceedling wymaga instalacji Ruby'iego co może odrzucać, jednak instalacja GTest
 - banalnie proste tworzenie mocków; każdy przypadek testowy może używać innych mocków,
 - łatwe używanie mocków,
 - nie można łatwo debugować; niby można jakoś VSCode ustawić, ale nie robiłem tego,
-- częściowa integracja z STM32CubeIDE,
-- uruchamianie z IDE lub konsoli (lepsze rozwiązanie) - brak konfiguracji,
-- błędy budowania tylko w konsoli na zewnątrz IDE,
+- pełna integracja z STM32CubeIDE, należy dodać konfigurqację "Run" (2 min),
+- uruchamianie z IDE lub konsoli zewnętrznej,
+- błędy budowania w konsolu IDE lub konsoli zewnętrznej,
 - można printować na konsole przy uruchamianiu kodu i testów,
 - można uruchamiać pojedyncze pliki testowe,
 - runtime error od razu widać, bo nie zobaczymy wyniku.
@@ -31,7 +31,7 @@ Ceedling wymaga instalacji Ruby'iego co może odrzucać, jednak instalacja GTest
 - trudność w używaniu mocków,
 - można debugować cały kod projektowy i produkcyjny w GDB i w STM32CubeIDE,
 - pełna integracja z STM32CubeIDE, ale wymaga to dość sporo pracy - poradniki na dole;
-- uruchamianie z IDE (lepsze rozwiązanie) lub konsoli,
+- uruchamianie z IDE lub konsoli,
 - błędy kompilacji w IDE okienko "Problems" tak jak w zwykłym budowaniu projektu,
 - nie można nic printowac na konsole,
 - uruchamianie wszystkich testów na raz; pojedyncze uruchamianie tylko jako argument budowania - dość problematyczne,
