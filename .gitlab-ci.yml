@@ -1,7 +1,7 @@
 stages:
   - build
-  # - test
-  # - deploy
+  - test
+  - deploy
   - release
   - package
 
@@ -49,41 +49,41 @@ build_image:
       dotenv: JOB_ID_BUILD_IMAGE.env   #export the environment statement so we can access it in the release stage
 
 
-# test_ceedling:
-#   stage: test
-#   image: throwtheswitch/madsciencelab:0.3.2
-#   script:
-#     - cd tests/ceedling && ceedling
-#   artifacts:
-#     when: always    #upload the report even if the job fails
-#     reports:
-#       junit: ./tests/ceedling/build/artifacts/test/report.xml
-#     expire_in: 1 mos
+test_ceedling:
+  stage: test
+  image: throwtheswitch/madsciencelab:0.3.2
+  script:
+    - cd tests/ceedling && ceedling
+  artifacts:
+    when: always    #upload the report even if the job fails
+    reports:
+      junit: ./tests/ceedling/build/artifacts/test/report.xml
+    expire_in: 1 mos
 
-# test_gtest:
-#   stage: test
-#   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
-#   script:
-#       - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/GTest -importAll "$PWD" -data /workspace
-#       - ./GTest/STM32G4_unitTests --gtest_output="xml:./GTest/report.xml"
-#   artifacts:
-#     when: always    #upload the report even if the job fails
-#     reports:
-#       junit: ./GTest/report.xml
-#     expire_in: 1 mos
+test_gtest:
+  stage: test
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
+  script:
+      - stm32cubeide --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -build STM32G4_unitTests/GTest -importAll "$PWD" -data /workspace
+      - ./GTest/STM32G4_unitTests --gtest_output="xml:./GTest/report.xml"
+  artifacts:
+    when: always    #upload the report even if the job fails
+    reports:
+      junit: ./GTest/report.xml
+    expire_in: 1 mos
 
 
-# deploy_qnap:
-#   stage: deploy
-#   image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
-#   # rules:
-#   #   - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
-#   before_script:
-#     - mkdir -p /builds/przemyslaw.dudek/mnt/dev     #/builds/repoGroup/mnt/dev
-#     - mount.cifs -o username="$QNAP_USER",password="$QNAP_PASS" //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
-#   script:
-#     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
-#     - cp ./TEST_app_${CI_COMMIT_REF_NAME}.image /builds/przemyslaw.dudek/mnt/dev/Gitlab/
+deploy_qnap:
+  stage: deploy
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
+  before_script:
+    - mkdir -p /builds/przemyslaw.dudek/mnt/dev     #/builds/repoGroup/mnt/dev
+    - mount.cifs -o username="$QNAP_USER",password="$QNAP_PASS" //10.102.12.5/dev /builds/przemyslaw.dudek/mnt/dev/
+  script:
+    - cp ./TEST_app_${CI_COMMIT_REF_NAME}.bin /builds/przemyslaw.dudek/mnt/dev/Gitlab/
+    - cp ./TEST_app_${CI_COMMIT_REF_NAME}.image /builds/przemyslaw.dudek/mnt/dev/Gitlab/
 
 
 release:
@@ -94,7 +94,7 @@ release:
       artifacts: true
     - job: build_image
       artifacts: true
-    # - job: test_ceedling
+    - job: test_ceedling
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   script:
@@ -111,9 +111,14 @@ release:
         - name: "Artifacts image"
           url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/${JOB_ID_BUILD_IMAGE}/artifacts"  
 
+
 package:
   stage: package
+  image: gitlab-lodz.ekoenergetyka.com.pl:5000/eko/dockerimagestm32:build.5
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v?\d+\.\d+\.\d+$/'
   script:
-    - 'curl --location --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./TEST_app_${CI_COMMIT_REF_NAME}.image "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/my_test_pack/${CI_COMMIT_TAG}/TEST_app_${CI_COMMIT_REF_NAME}.image"'
+    - apt -y install curl
+    - apt -y install zip
+    - zip artifacts.zip ./TEST_app_${CI_COMMIT_REF_NAME}.image ./TEST_app_${CI_COMMIT_REF_NAME}.bin
+    - 'curl --location --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file ./artifacts.zip "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/my_test_pack/${CI_COMMIT_TAG}/artifacts.zip"'
