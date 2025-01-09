@@ -1,21 +1,19 @@
 ---
 
-# Notes:
-# Sample project C code is not presently written to produce a release artifact.
-# As such, release build options are disabled.
-# This sample, therefore, only demonstrates running a collection of unit tests.
-
 :project:
-  :use_exceptions: FALSE
-  :use_test_preprocessor: TRUE
-  :use_auxiliary_dependencies: TRUE
-  :build_root: build
-  # :release_build: TRUE
-  :test_file_prefix: test
   :which_ceedling: gem
   :ceedling_version: '?'
+  
+  :use_mocks: TRUE
+  :use_exceptions: FALSE
+  
+  :use_test_preprocessor: :all
+  :use_auxiliary_dependencies: TRUE
+  
+  :build_root: build
+  :test_file_prefix: test
 
-
+# Configure additional command line flags provided to tools used in each build step
 :flags:
   :test:
     :compile:
@@ -28,10 +26,16 @@
 
 :environment: []
 
+# override the default extensions for your system and toolchain
 :extension:
   :executable: .out
 
+# This is where Ceedling should look for your source and test files.
+# see documentation for the many options for specifying this.
 :paths:
+  :include:
+    - ../../application/**
+    - ../../third_party/tiny-AES-c/**
   :test:
     - +:tests/**
 #    - -:test/support
@@ -41,15 +45,16 @@
 #  :support:
 #    - test/support
 
+# Compilation symbols to be injected into builds
+# See documentation for advanced options:
+#  - Test name matchers for different symbols per test executable build
+#  - Referencing symbols in multiple lists using advanced YAML
+#  - Specifiying symbols used during test preprocessing
 :defines:
-  :common: &common_defines []
   :test:
-    - *common_defines
-    - TEST
-  :test_preprocess:
-    - *common_defines
     - TEST
 
+# Configuration Options specific to CMock. See CMock docs for details
 :cmock:
   :mock_prefix: mock_
   :when_no_prototypes: :warn
@@ -64,14 +69,30 @@
     int8:     INT8
     bool:     UINT8
 
+# LIBRARIES
+# These libraries are automatically injected into the build process. Those specified as
+# common will be used in all types of builds. Otherwise, libraries can be injected in just
+# tests or releases. These options are MERGED with the options in supplemental yaml files.
 :libraries:
   :system:
     - m
 
+# Plugins are optional Ceedling features which can be enabled. Ceedling supports
+# a variety of plugins which may effect the way things are compiled, reported, 
+# or may provide new command options. Refer to the readme in each plugin for 
+# details on how to use it.
 :plugins:
-  :load_paths:
-    - "#{Ceedling.load_path}"
+#  :load_paths:
+#    - "#{Ceedling.load_path}"
   :enabled:
-     #- stdout_pretty_tests_report
-     - stdout_gtestlike_tests_report
-     - junit_tests_report
+     - report_tests_pretty_stdout
+     #- report_tests_gtestlike_stdout
+     - report_tests_log_factory
+
+# Specify which reports you'd like from the log factory
+:report_tests_log_factory:
+  :reports:
+    #- json 
+    - junit 
+    #- cppunit 
+    #- html 

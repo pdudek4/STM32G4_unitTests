@@ -17,6 +17,7 @@
 //Mocks
 
 //CUT dependencies
+#include "crypto.h"
 #include "aes.h"
 
 

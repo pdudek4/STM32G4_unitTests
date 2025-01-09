@@ -39,22 +39,22 @@ Ceedling wymaga instalacji Ruby'iego co może odrzucać, jednak instalacja GTest
 
 ## Instalacja Ceedling
 Wymagane jest posiadanie pakietu [Ruby](https://www.ruby-lang.org/en/) na swoim komputerze.
-Narzędzie Ceedling w wersji stabilnej (master) 0.31 na 11.24r. współpracuje tylko z wersjami Ruby poniżej 3.0.0.
-Najnowsza wersja Ruby to 3.3.6. Popularna wersja Ruby 2.7.1 dobrze wspólpracuje z wieloma narzędziami i to ją polecam zainstalować.
+Narzędzie Ceedling w wersji stabilnej 1.0.0 współpracuje tylko z wersjami Ruby powyżej 3.0.0.
+Najnowsza wersja Ruby to 3.3.6. Dla Linuxa polecam zainstalować 3.0.6, poradnik poniżej.
 
-Obecnie rozwijana jest wersja Ceedling 1.00, która ukaże się niebawem. Posiada o wiele więcej opcji. Wymaga Ruby w wersji >3.0.0.
-Można ją przetestować ściągając z gita podanego powyżej jako branch 0.32_rc lub jako [obraz dockera](https://hub.docker.com/r/throwtheswitch/madsciencelab).
+Można przetestować używając [obraz dockera](https://hub.docker.com/r/throwtheswitch/madsciencelab).
 
 ### Instalacja Ruby Linux
 Najłatwiej jest zainstalować ruby za pomocą rbenv. Jest to manager wersji ruby.
 Ma dużo opcji, dla nas najważniejsze jest to że instaluje wszystie potrzebne zależności. Miejsce na dysku około 80 MB.
 [Poradnik instalacji rbenv](https://www.techiediaries.com/install-ruby-2-7-rails-6-ubuntu-20-04/).
+Jednak zamiast wersji 2.7.1 instalujemy wersję 3.0.6.
 Polecana jest instalacja taka jak w poradniku przez `git clone`, ponieważ wersja z `apt install rbenv` jest stara i nieaktualna.
 Uwaga! W poradniku dochodzimy do instalacji `gem bundler` włącznie. Zatrzymujemy się na *Installing Ruby on Rails 6*, bo tego nie potrzebujemy.
 
 ### Instalacja Ruby Windows
 Wymagane jest posiadanie pakietu [MSYS2](https://www.msys2.org/), którego większość programistów posiada. Miejsce na dysku około 800 MB.
-Ruby pobieramy [stąd](https://rubyinstaller.org/downloads/archives/) w sekcji **RubyInstallers** wyszukujemy `Ruby 2.7.1 (x64)`.
+Ruby pobieramy [stąd](https://rubyinstaller.org/downloads/archives/) w sekcji **RubyInstallers** wyszukujemy `Ruby 3.0.6 (x64)`.
 Uwaga! Nie instaluj Ruby w ścieżce, gdzie są spacje np. *"C:\Program Files"*. Upewnij się, że zaznaczyłeś *"Add Ruby executables to your PATH"* podczas instalacji.
 Jeżeli nie, zrób to ręcznie.
 
