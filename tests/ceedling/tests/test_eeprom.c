@@ -19,6 +19,7 @@
 #include "eeprom.h"
 
 //CUT dependencies
+#include "eeprom.h"
 
 //Other
 #include "utilities.h"

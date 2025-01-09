@@ -23,6 +23,7 @@
 #include "application.h"
 
 //CUT dependencies
+#include "application.h"
 #include "utilities.h"
 #include "configuration.h"
 #include "eeprom.h"
