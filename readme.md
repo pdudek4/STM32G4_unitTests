@@ -59,7 +59,7 @@ Uwaga! Nie instaluj Ruby w ścieżce, gdzie są spacje np. *"C:\Program Files"*.
 Jeżeli nie, zrób to ręcznie.
 
 ### Instalacja pakietu Ceedling
-W terminalu wykonujemy polecenie `gem install ceedling`. Po tym komenda `ceedling version` powinna zwrócić `Ceedling:: 0.31.1`.
+W terminalu wykonujemy polecenie `gem install ceedling`. Po tym komenda `ceedling version` powinna zwrócić `Ceedling => 1.0.0`.
 Koniec.
 
 ## Instalacja GTest i GMock
@@ -99,21 +99,21 @@ https://www.throwtheswitch.org/eclipse
 
 Gdzie jest dany GEM?\
 `gem which ceedling`\
-~/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/\
-~/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/bin/ceedling
+~/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/\
+~/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/ceedling-1.0.0/lib/ceedling
 
 Eclipse ma błąd, że "/usr/bin/env: ‘ruby’: No such file or directory"
 to trzeba dodać mu symlinka.
 
 Gdzie ruby\
 `which ruby`\
-/home/przemyslaw/.rbenv/shims/ruby /usr/bin/ruby
+~/.rbenv/shims/ruby /usr/bin/ruby
 
 Zrób soft symlinka do tego\
-sudo ln -s /home/przemyslaw/.rbenv/shims/ruby /usr/bin/ruby
+sudo ln -s ~/.rbenv/shims/ruby /usr/bin/ruby
 
 Scieżka do unity\
-/home/przemyslaw/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/
+~/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/ceedling-1.0.0/vendor/unity/src/
 
 ## Użycie GTest w Eclipse / STM32CubeIde
 Ten projekt jest skonfigurowany według poniższych zaleceń.\
