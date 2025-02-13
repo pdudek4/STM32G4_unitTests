@@ -349,9 +349,9 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.908989784" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option defaultValue="gnu.cpp.compiler.debugging.level.max" id="gnu.cpp.compiler.exe.debug.option.debugging.level.405511139" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.369651537" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/ceedling-1.0.0/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/application}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/tests}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/build/test/mocks}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1465133761" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -360,9 +360,9 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.395751436" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.exe.debug.option.debugging.level.498776516" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.958160186" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/ceedling-1.0.0/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/application}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/tests}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/build/test/mocks}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.dialect.std.1760406349" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
@@ -380,9 +380,9 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.1870190768" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.both.asm.option.include.paths.1511493973" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/3.0.6/lib/ruby/gems/3.0.0/gems/ceedling-1.0.0/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/application}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/tests}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/przemyslaw/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/tests/ceedling/build/test/mocks}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.403597669" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
